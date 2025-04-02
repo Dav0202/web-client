@@ -181,6 +181,10 @@
         <regression-diagram></regression-diagram>
     </aside>
 
+	<aside ng-if="showToastComponent">
+		<app-kommonitor-toast-helper-component></app-kommonitor-toast-helper-component>
+	</aside>
+
 		<aside id="sidebarReachability" ng-class="sidebarReachabilityClass" ng-if="$ctrl.kommonitorElementVisibilityHelperServiceInstance.elementVisibility.reachability">
         <kommonitor-reachability></kommonitor-reachability>
     </aside>
@@ -208,8 +212,12 @@
 				<!-- LEFT-HANDED SIDEBAR BUTTONS -->
 
 				<div id="sideBarButtons">
-						<button type="button" style="display: block; position: relative; margin-top: 5px;" " id="sidebarIndicatorConfigCollapse"
-							ng-click="onSidebarIndicatorButtonClick()" ng-class="buttonIndicatorConfigClass" ng-if="$ctrl.kommonitorElementVisibilityHelperServiceInstance.elementVisibility.indicatorConfig" data-toggle="tooltip" title="Indikatorenauswahl">
+						<button ng-click="toggleToastComponent()" type="button" style="display: block; position: relative; margin-top: 5px;" ng-class="buttonIndicatorConfigClass" data-toggle="tooltip">
+							<i style="font-size:2.5vh;" class="fas fa-bell"></i>
+						</button>
+						</button>
+						<button type="button" style="display: block; position: relative; margin-top: 5px;"  id="sidebarIndicatorConfigCollapse"
+							ng-click="onSidebarIndicatorButtonClick()" ng-class="buttonIndicatorConfigClass"  data-toggle="tooltip" title="Indikatorenauswahl">
 								<!-- <span style="font-size:2.5vh;" class="glyphicon glyphicon-th" aria-hidden="true"></span> -->
 								<i style="font-size:2.5vh;" class="fas fa-sitemap"></i>
 						</button>

@@ -11,8 +11,8 @@ angular.module('kommonitorUserInterface').component('kommonitorUserInterface', {
 		this.kommonitorElementVisibilityHelperServiceInstance = kommonitorElementVisibilityHelperService;
 
 		kommonitorDataExchangeService.anySideBarIsShown = false;
-
-    $scope.infoModalTrigger = false;
+		$scope.showToastComponent = false
+    	$scope.infoModalTrigger = false;
 		
 		kommonitorDataExchangeService.currentKeycloakUser;
 		$scope.password;
@@ -48,6 +48,11 @@ angular.module('kommonitorUserInterface').component('kommonitorUserInterface', {
 				$scope.prepUserInformation();
 			}, 1000);
 		};
+		
+		$scope.toggleToastComponent = function() {
+			$scope.showToastComponent = !$scope.showToastComponent;
+	  	};
+
 
 		$scope.prepUserInformation = function() {
 

@@ -2,7 +2,9 @@
 import { DoBootstrap, NgModule, Version, inject, Input, Inject } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
-import { downgradeComponent } from '@angular/upgrade/static';
+import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import $ from 'jquery';
 import Keycloak from 'keycloak-js';
@@ -31,7 +33,8 @@ import { NgbCalendar, NgbDatepickerModule, NgbDateStruct, NgbAccordionModule, Ng
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { KommonitorClassificationComponent } from './components/ngComponents/userInterface/kommonitorClassification/kommonitor-classification.component';
-
+import { KommonitorToastHelperComponentComponent } from './components/toastHelperComponent/kommonitor-toast-helper-component.component';
+import { KommonitorToastHelperServiceService } from 'services/kommonitor-toast-helper-service/kommonitor-toast-helper-service.service';
 
 // currently the AngularJS routing is still used as part of kommonitorClient module
 const routes: Routes = [];
@@ -46,6 +49,15 @@ declare var MathJax;
     NgbDatepickerModule, 
     NgbAccordionModule,
     FormsModule, 
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      progressBar: true,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false,
+      timeOut: 7000,
+      extendedTimeOut: 3000,
+    }),
     JsonPipe
   ],
   providers:[
@@ -62,8 +74,10 @@ declare var MathJax;
   declarations: [
     InfoModalComponent,
     KommonitorLegendComponent,
-    KommonitorClassificationComponent
-  ]
+    KommonitorClassificationComponent,
+    KommonitorToastHelperComponentComponent,
+  ],
+
 })
 
 export class AppModule implements DoBootstrap {
@@ -110,6 +124,10 @@ export class AppModule implements DoBootstrap {
 
     angular.module('kommonitorUserInterface')
     .directive('kommonitorLegendNew',  downgradeComponent({ component: KommonitorLegendComponent }) as angular.IDirectiveFactory);
+
+    angular.module('kommonitorUserInterface')
+    .directive('appKommonitorToastHelperComponent',  downgradeComponent({ component: KommonitorToastHelperComponentComponent }) as angular.IDirectiveFactory);
+
 
    /*  angular.module('kommonitorUserInterface')
     .directive('versionInfo',  downgradeComponent({ component: VersionInfoComponent }) as angular.IDirectiveFactory);
